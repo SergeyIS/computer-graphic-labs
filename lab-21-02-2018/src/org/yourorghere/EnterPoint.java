@@ -11,20 +11,23 @@ import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 
 
-public class EnterPoint implements GLEventListener {
+public class EnterPoint implements GLEventListener 
+{
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         Frame frame = new Frame("Simple JOGL Application");
         GLCanvas canvas = new GLCanvas();
 
         canvas.addGLEventListener(new EnterPoint());
         frame.add(canvas);
-        frame.setSize(640, 480);
+        frame.setSize(640, 640);
         final Animator animator = new Animator(canvas);
         frame.addWindowListener(new WindowAdapter() {
 
             @Override
-            public void windowClosing(WindowEvent e) {
+            public void windowClosing(WindowEvent e)
+            {
                 // Run this on another thread than the AWT event queue to
                 // make sure the call to Animator.stop() completes before
                 // exiting
@@ -43,14 +46,16 @@ public class EnterPoint implements GLEventListener {
         animator.start();
     }
 
-    public void init(GLAutoDrawable drawable) {
+    public void init(GLAutoDrawable drawable) 
+    {
         // Use debug pipeline
         // drawable.setGL(new DebugGL(drawable.getGL()));
         GL gl = drawable.getGL();
         System.err.println("INIT GL IS: " + gl.getClass().getName());
     }
 
-    public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
+    public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) 
+    {
         GL gl = drawable.getGL();
         GLU glu = new GLU();
     }
@@ -59,9 +64,9 @@ public class EnterPoint implements GLEventListener {
     {
         try
         {
-            GL gl = drawable.getGL();
-            //your code here
-            gl.glFlush();
+            MyDraw drawObject = new MyDraw(drawable.getGL());
+            
+            drawObject.DrawCircle();
         }
         catch(Exception e)
         {
