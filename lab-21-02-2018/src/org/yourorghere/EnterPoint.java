@@ -21,7 +21,7 @@ public class EnterPoint implements GLEventListener
 
         canvas.addGLEventListener(new EnterPoint());
         frame.add(canvas);
-        frame.setSize(640, 640);
+        frame.setSize(1000, 500);
         final Animator animator = new Animator(canvas);
         frame.addWindowListener(new WindowAdapter() {
 
@@ -61,12 +61,29 @@ public class EnterPoint implements GLEventListener
     }
 
     public void display(GLAutoDrawable drawable) 
-    {
+    {       
         try
         {
-            MyDraw drawObject = new MyDraw(drawable.getGL());
+            GL gl = drawable.getGL(); 
+            gl.glEnable(GL.GL_DEPTH_TEST);
+            gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
             
-            drawObject.DrawCircle();
+            gl.glViewport(0, 1, 500, 500);
+            gl.glClearColor(0.1f, 0.1f, 0.1f, 0);
+            
+            
+            gl.glColor3f(1, 0, 1);
+            gl.glLoadIdentity();
+            gl.glRotatef(-107, 1, 0, 0);
+            gl.glRotatef(35,0,0,1);
+
+            
+            MyDraw drawer = new MyDraw(gl);
+            drawer.DrawAxis();
+            
+            gl.glViewport(500, 1, 500, 500);
+            gl.glOrtho(-4, 4, -4, 4, -4, 4);
+            drawer.DrawSphere();
         }
         catch(Exception e)
         {
@@ -79,4 +96,3 @@ public class EnterPoint implements GLEventListener
         
     }
 }
-

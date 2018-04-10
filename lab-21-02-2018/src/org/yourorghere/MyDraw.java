@@ -80,5 +80,55 @@ public class MyDraw {
         gl.glFlush();
     }
     
+    public void DrawSphere()
+    {
+        double x;
+        double y;
+        double z;
+        double R = 0.7;
+        double alpha;
+        double beta;
+        double da;
+        double db;
+        int n = 24;
+        int m = 34;
+
+        da = 2*Math.PI/n;
+        db = Math.PI/m;
+
+        beta = 0;
+        while(beta <= 2*Math.PI)
+        {
+           alpha = 0;
+            while(alpha <= 2*Math.PI)
+            {
+                x = R*Math.cos(alpha)*Math.cos(beta);
+                y = R*Math.sin(alpha)*Math.cos(beta);
+                z = Math.sin(beta);
+
+                gl.glBegin(GL.GL_POINTS);
+                    gl.glVertex3d(x, y, z);
+                gl.glEnd();
+
+                alpha+=da;
+            }
+
+            beta+=db;
+        }
+    }
+    
+    public void DrawAxis()
+    {
+        gl.glBegin(GL.GL_LINES);
+            gl.glColor3f(1, 1, 1);
+            gl.glVertex3d(-1, 0, 0);
+            gl.glVertex3d(1, 0, 0);
+            gl.glVertex3d(0, -1, 0);
+            gl.glVertex3d(0, 1, 0);
+            gl.glVertex3d(0, 0, 1);
+            gl.glVertex3d(0, 0, -1);
+        gl.glEnd();
+    }
+    
     private GL gl;
 }
